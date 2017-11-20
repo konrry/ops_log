@@ -11,7 +11,7 @@
 
     <modules>
         <module>ops_log_comm</module>
-        <module>ops_log</module>
+        <module>ops_log_core</module>
     </modules>
 
 
