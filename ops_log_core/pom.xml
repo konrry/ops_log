@@ -10,7 +10,7 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.lvmama.log</groupId>
+    <groupId>net.galvin.ops.log</groupId>
     <artifactId>ops_log</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
@@ -22,7 +22,7 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.lvmama.log</groupId>
+            <groupId>net.galvin.ops.log</groupId>
             <artifactId>ops_log_comm</artifactId>
             <version>0.0.5</version>
         </dependency>
