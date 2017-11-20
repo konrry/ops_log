@@ -23,7 +23,7 @@
     <dubbo:provider timeout="120000" retries="0" payload="20971520"/>
 
     <!-- 日志查询服务 -->
-    <dubbo:service interface="com.lvmama.log.client.QueryLogClientService" ref="queryLogClientService" />
+    <dubbo:service interface="net.galvin.ops.log.client.QueryLogClientService" ref="queryLogClientService" />
 
 
 

@@ -1,8 +1,8 @@
 package test;
 
 import com.alibaba.fastjson.JSON;
-import com.lvmama.log.utils.DateUtils;
-import com.lvmama.log.utils.kafka.producer.DefaultMsgProducer;
+import net.galvin.ops.log.utils.DateUtils;
+import net.galvin.ops.log.utils.kafka.producer.DefaultMsgProducer;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
