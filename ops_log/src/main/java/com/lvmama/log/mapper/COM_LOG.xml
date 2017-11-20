@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    <mapper namespace="com.lvmama.log.dao.ComLogDao">
+
+    <insert id="insert" parameterType="com.lvmama.log.comm.po.ComLog"  useGeneratedKeys="true" keyProperty="logId">
+        insert into ${tableName}
+            (CREATE_TIME,RECEIVE_TIME,LOG_TIME,LOG_MSG_ID, CONTENT,MEMO, LOG_TYPE, LOG_NAME,
+            OPERATOR_NAME, OBJECT_TYPE, OBJECT_ID, PARENT_ID, PARENT_TYPE,CONTENT_TYPE)
+        values
+            (#{createTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, #{logTime,jdbcType=TIMESTAMP},
+            #{msgId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR},
+            #{logType,jdbcType=VARCHAR}, #{logName,jdbcType=VARCHAR}, #{operatorName,jdbcType=VARCHAR} ,
+            #{objectType,jdbcType=VARCHAR} , #{objectId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT},
+            #{parentType,jdbcType=VARCHAR}, #{contentType,jdbcType=VARCHAR})
+    </insert>
+
+    <update id="createTable" parameterType="java.util.Map">
+        CREATE TABLE IF NOT EXISTS ${tableName} (
+          LOG_ID BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT '主键',
+          LOG_MSG_ID VARCHAR(200) DEFAULT NULL COMMENT 'kafka消息ID',
+          PARENT_ID BIGINT(20) UNSIGNED DEFAULT NULL,
+          PARENT_TYPE VARCHAR(150) DEFAULT NULL,
+          OBJECT_ID BIGINT(20) UNSIGNED DEFAULT NULL,
+          OBJECT_TYPE VARCHAR(150) DEFAULT NULL,
+          LOG_TYPE VARCHAR(150) DEFAULT NULL,
+          LOG_NAME VARCHAR(200) DEFAULT NULL,
+          CONTENT VARCHAR(4000) DEFAULT NULL,
+          CONTENT_TYPE VARCHAR(150) DEFAULT NULL,
+          MEMO VARCHAR(4000) DEFAULT NULL,
+          OPERATOR_NAME VARCHAR(150) DEFAULT NULL,
+          CREATE_TIME DATETIME DEFAULT NULL COMMENT '日志的操作时间',
+          RECEIVE_TIME DATETIME DEFAULT NULL COMMENT 'kafka消息接收时间',
+          LOG_TIME DATETIME DEFAULT NULL COMMENT '日志保存到数据库时间',
+          PRIMARY KEY (LOG_ID),
+          INDEX INDEX_COM_LOG_OID_OTYPE (OBJECT_ID, OBJECT_TYPE),
+          INDEX INDEX_COM_LOG_PID_PTYPE (PARENT_ID, PARENT_TYPE),
+          INDEX INDEX_COM_LOG_CTIME (CREATE_TIME)
+        )
+        ENGINE = INNODB
+        AVG_ROW_LENGTH = 192
+        CHARACTER SET utf8
+        COLLATE utf8_general_ci;
+    </update>
+
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:dubbo.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <dubbo:application name="${dubbo.application.name}"/>
+    <dubbo:registry  protocol="zookeeper" address="${dubbo.registry.address}" check="false" />
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" threads="400"/>
+    <dubbo:monitor address="${dubbo.monitor.address}"/>
+    <dubbo:consumer check="false" lazy="true"/>
+    <dubbo:provider timeout="120000" retries="0" payload="20971520"/>
+
+    <!-- 日志查询服务 -->
+    <dubbo:service interface="com.lvmama.log.client.QueryLogClientService" ref="queryLogClientService" />
+
+
+
+</beans>
