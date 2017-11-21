@@ -77,10 +77,10 @@ public class SysEnum {
      * ES 中的INDEX
      */
     public enum ES_INDEX{
-        lvmm_log_2014(),
-        lvmm_log_2015(),
-        lvmm_log_2016(),
-        lvmm_log_2017();
+        ops_log_2014(),
+        ops_log_2015(),
+        ops_log_2016(),
+        ops_log_2017();
     }
 
     /**

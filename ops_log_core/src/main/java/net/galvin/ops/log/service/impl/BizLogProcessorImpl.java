@@ -25,20 +25,20 @@ public class BizLogProcessorImpl implements MsgProcessor {
 
     @Override
     public void execu(String msg, String topic, String groupId) {
-        logger.info("LVMAMA_LOG ===>> msg: " + msg);
+        logger.info("OPS_LOG ===>> msg: " + msg);
 
         //消息解析
         LogMsgVo logMsgVo = this.parse(msg,topic,groupId);
         if(logMsgVo == null || StringUtils.isEmpty(logMsgVo.getMsgId())
                 || logMsgVo.getComLog() == null){
-            logger.info("LVMAMA_LOG ===>> logMsg is null ... ");
+            logger.info("OPS_LOG ===>> logMsg is null ... ");
             return;
         }
 
         //幂等性检测
         boolean idempotent = IdempotentUtil.get().check(logMsgVo.getMsgId());
         if(idempotent){
-            logger.info("LVMAMA_LOG ===>> idempotent true ... ");
+            logger.info("OPS_LOG ===>> idempotent true ... ");
             return;
         }
 

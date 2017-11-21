@@ -10,26 +10,17 @@ import org.slf4j.LoggerFactory;
 public final class ExceptionFormatUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExceptionFormatUtil.class);
-	
-	private static String lvmamaClassFlag = "com.lvmama";
 
 	/**
-	 * 将Exception的异常栈按简化输出(只输出com.lvmama开头的类调用栈)
-	 * <br/>
+	 * 将Exception的异常栈按简化输出
 	 * 异常名 Caused by:(异常出处类名.方法名:行号<-..)
-	 * @param e
-	 * @return
 	 */
-	public static String getTrace(Exception e){
-		return getTrace(e, false);
-	}
-	
-	public static String getTrace(Exception e, boolean lvmamaClass) {
+	public static String getTrace(Exception e) {
 		if(e == null) {
 			return "";
 		}
 		try {
-			return format(e, lvmamaClass);
+			return format(e);
 		} catch (Exception e1) {
 			//如果格式化不出来，直接原文输出
 			logger.error("格式化异常出错："+e.getMessage());
@@ -38,13 +29,13 @@ public final class ExceptionFormatUtil {
 		return "";
 	}
 
-	private static String format(Exception e, boolean lvmamaClass) {
+	private static String format(Exception e) {
 		StringBuilder exceptionResult = new StringBuilder(e.toString());
-		getFormatString(e, lvmamaClass, exceptionResult);
+		getFormatString(e, exceptionResult);
 		return exceptionResult.toString();
 	}
 
-	private static void getFormatString(Throwable e, boolean lvmamaClass, StringBuilder exceptionResult) {
+	private static void getFormatString(Throwable e, StringBuilder exceptionResult) {
 		StackTraceElement[] stList = e.getStackTrace();
 		if(stList == null) {
 			return ;
@@ -53,11 +44,6 @@ public final class ExceptionFormatUtil {
 			exceptionResult.append(" Caused by:(");
 		}
 		for(StackTraceElement ste : stList) {
-			if(lvmamaClass) {
-				if(!ste.getClassName().contains(lvmamaClassFlag)) {
-					continue;
-				}
-			}
 			exceptionResult.append(ste.getFileName().replace(".java", "."));
 			exceptionResult.append(ste.getMethodName());
 			exceptionResult.append(":");
@@ -71,7 +57,7 @@ public final class ExceptionFormatUtil {
 		
 		Throwable e1 = e.getCause();
 		if(e1 != null){
-			getFormatString(e1, lvmamaClass, exceptionResult);
+			getFormatString(e1, exceptionResult);
 		}
 	}
 

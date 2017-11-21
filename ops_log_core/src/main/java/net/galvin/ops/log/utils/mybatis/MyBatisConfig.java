@@ -22,7 +22,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-@MapperScan("com.lvmama.log.dao")
+@MapperScan("net.galvin.ops.log.dao")
 public class MyBatisConfig {
 
     @Bean(name="dataSource")
@@ -39,7 +39,7 @@ public class MyBatisConfig {
 
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         try {
-            sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:com/lvmama/log/mapper/*.xml"));
+            sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:net/galvin/ops/log/mapper/*.xml"));
             return sqlSessionFactoryBean.getObject();
         } catch (Exception e) {
             throw new RuntimeException(e);

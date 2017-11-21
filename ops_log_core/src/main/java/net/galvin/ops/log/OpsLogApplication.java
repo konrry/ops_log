@@ -10,15 +10,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @SpringBootApplication
 @ImportResource("classpath:application-lvmm-log-provider.xml")
-public class LvammaLogApplication extends SpringBootServletInitializer {
+public class OpsLogApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
-        SpringApplication.run(LvammaLogApplication.class, args);
+        SpringApplication.run(OpsLogApplication.class, args);
     }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(LvammaLogApplication.class);
+        return application.sources(OpsLogApplication.class);
     }
 
 }

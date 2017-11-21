@@ -8,7 +8,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * 任务调度配置
  */
 @Configuration
-@ComponentScan("com.lvmama.log.job")
+@ComponentScan("net.galvin.ops.log.job")
 @EnableScheduling
 public class TaskSchedulerConfig {
 
